@@ -1,8 +1,9 @@
 using System.Data.SqlClient;
 using Dapper;
 namespace TP07_PreguntadORT;
-static class BD{
-        private static string _connectionString = @"Server=localhost; DataBase=TP07 - PreguntadORT_DataBase; Trusted_Connection=True;";
+public class BD
+{
+private static string _connectionString = @"Server=localhost; DataBase=TP07 - PreguntadORT_DataBase; Trusted_Connection=True;";
 public static List<Categoria> ObtenerCategorias(){
         List<Categoria> ListaCategorias = new List<Categoria>();
         string SQL = "SELECT * FROM Categorias";
@@ -31,8 +32,17 @@ public static List<Respuesta> ObtenerRespuestas(int idPregunta){
         List<Respuesta> ListaRespuestas = new List<Respuesta>();
         string SQL = "SELECT * FROM Respuestas WHERE IdPregunta = @id";
         using(SqlConnection db =new SqlConnection(_connectionString)){
-                db.Execute(SQL,new{} );
+               ListaRespuestas=db.Query<Respuesta>(SQL, new{id = idPregunta}).ToList();
         }
         return ListaRespuestas;
+}
+public static bool esCorrecta(int idRespuesta){
+        bool esCorrecta = false;
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+                string sql = "SELECT Correcta FROM Respuestas WHERE IdRespuesta =@idRespuesta";
+                esCorrecta = db.QueryFirstOrDefault<bool>(sql, new {IdRespuesta = idRespuesta});
+        }
+        return esCorrecta;
 }
 }

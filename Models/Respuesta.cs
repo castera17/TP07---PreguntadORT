@@ -1,3 +1,4 @@
+namespace TP07_PreguntadORT;
 public class Respuesta
 {
 public int IdRespuesta {get; set;}
