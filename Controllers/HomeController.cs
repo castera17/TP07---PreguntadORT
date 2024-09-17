@@ -33,12 +33,17 @@ public class HomeController : Controller
 
     public IActionResult Jugar()
     {
-        
-        return Jugar();
+        Pregunta PreguntaElegida=Juego.ObtenerProximaPregunta();
+        if(PreguntaElegida==null)
+        {
+            return RedirectToAction("FinalJuego");
+        }
+        else return RedirectToAction("Preguntas", PreguntaElegida);
     }
 
     [HttpPost] public IActionResult VerificarRespuesta(int idPregunta, int idRespuesta)
     {
-
+        ViewBag.EsCorrecta = Juego.VerificarRespuesta(idRespuesta);
+        return View("Respuesta");
     }
 }
