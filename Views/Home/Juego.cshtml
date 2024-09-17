@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Juego";
+}
+
+<h5>@ViewBag.Usuario @ViewBag.PuntajeActual Puntos</h5>
+<div class="Pregunta">
+    <div class="Enunciado">
+        <h1>@ViewBag.PreguntaElegida.Enunciado</h1>
+    </div>
+    <form Action='@Url.Action("VerificarRespuesta")' method="Post" class="Respuestas">
+        <input type="hidden" name="idPregunta" value="@ViewBag.PreguntaElegida.IdPregunta">
+        @foreach(Respuesta respuesta in ViewBag.ListaRespuestas){
+            <button type="sumbit" class="btn btn-primary UnaRespuesta" name="idRespuesta" value="@respuesta.IdRespuesta">@respuesta.Contenido</button>
+        } </form>
+    <div class="categoria">
+        <h6>@ViewBag.CategoriaPregunta.Nombre</h6>
+        <img src="@ViewBag.CategoriaPregunta.Foto">
+    </div>
+</div>

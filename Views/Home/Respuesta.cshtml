@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Respuesta";
+}
+<h5>@ViewBag.Usuario @ViewBag.PuntajeActual Puntos</h5>
+<div class="ContenedorRespuesta">
+    <div class="EsCorrecta">
+        <h1>@ViewBag.Mensaje</h1>
+        @if(ViewBag.RespuestaCorrecta!=null){
+            <p>@ViewBag.RespuestaCorrecta</p>
+        }
+    </div>
+    
+<button onclick="window.location.href='@Url.Action("Jugar","Home")'" class="btn btn-primary siguiente">Siguiente</button>
+<button onclick="window.location.href='@Url.Action("FinalJuego", "Home")'" class="btn btn-primary terminarJuego">Terminar juego</button>
